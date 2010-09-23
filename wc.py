@@ -1,6 +1,7 @@
 from multiprocessing import Pool, Queue, Process
 from collections import defaultdict
 from glob import iglob
+from pprint import pprint
 import re
 
 PoolSize = 20
@@ -34,5 +35,19 @@ if __name__ == '__main__':
     for i in worker_results:
         file_results.put(i)
     # signals the end of incoming data for summing
-    file_results.put(None) 
-    complete_results.get()
+    file_results.put(None)
+    pprint(complete_results.get())
+
+'''
+$ wc $(find -type f 20_newsgroups/)
+
+real    1m44.398s
+user    0m1.988s
+sys     0m2.208s
+
+$ time python wc.py
+
+real    0m27.514s
+user    0m37.134s
+sys     0m1.916s
+'''
